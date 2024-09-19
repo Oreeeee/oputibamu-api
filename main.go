@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"log"
@@ -30,6 +31,15 @@ func main() {
 	})
 	r.GET("/api/v1/teachers.json", func(c *gin.Context) {
 		c.JSON(200, vo.GetTeachers())
+	})
+	r.GET("/api/v1/rooms.json", func(c *gin.Context) {
+		c.JSON(200, vo.GetRooms())
+	})
+	r.GET("/api/v1/timetable/:type/:id", func(c *gin.Context) {
+		ttype := c.Param("type")
+		id := c.Param("id")
+		endpoint := fmt.Sprintf("/plany/%s%s.html", oputibamu.TimetableTypes[ttype], id)
+		c.JSON(200, vo.GetRawTable(endpoint))
 	})
 	r.Run()
 }
