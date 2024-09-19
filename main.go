@@ -28,5 +28,8 @@ func main() {
 	r.GET("/api/v1/classes.json", func(c *gin.Context) {
 		c.JSON(200, vo.GetClasses())
 	})
+	r.GET("/api/v1/teachers.json", func(c *gin.Context) {
+		c.JSON(200, vo.GetTeachers())
+	})
 	r.Run()
 }
