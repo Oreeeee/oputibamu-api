@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"log"
 	"oputibamu"
@@ -22,5 +22,11 @@ func main() {
 		elektronikMode = true
 	}
 	vo := oputibamu.VOScraper{timetableUrl, elektronikMode, elektronikApi}
-	fmt.Println(vo.GetClasses())
+
+	// Server
+	r := gin.Default()
+	r.GET("/api/v1/classes.json", func(c *gin.Context) {
+		c.JSON(200, vo.GetClasses())
+	})
+	r.Run()
 }
